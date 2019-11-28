@@ -1,42 +1,57 @@
-import { prop, Ref } from '@typegoose/typegoose';
+import { prop, Ref, getModelForClass } from '@typegoose/typegoose';
 
 export class User{
 
-    private __id: Ref<User>
+    private _id: Ref<User>
     @prop()
-    private _name: string;
+    private name: string;
     @prop()
-    private _email: string;
+    private email: string;
     @prop()
-    private _password: string;
+    private password: string;
     @prop()
-    private _admin: boolean
+    private admin: boolean
 
-    constructor(_id: Ref<User>, name: string, email: string, password: string, admin? : boolean){
-        this.__id = _id;
-        this._name = name;
-        this._email = email;
-        this._password = password;
-        this._admin = (admin ? admin : false);
+    constructor(name: string, email: string, password: string, admin? : boolean, _id? : Ref<User>){
+        this._id = _id;
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.admin = (admin ? admin : false);
     }
 
-    get _id(): Ref<User>{
-        return this.__id;
+    set _name(name: string){
+        this.name = name;
+    }
+
+    set _email(email: string){
+        this.email =  email;
+    }
+
+    set _password(password: string){
+        this.password = password;
+    }
+
+    
+    get __id(): Ref<User>{
+        return this._id;
     } 
 
-    get name(): string{
-        return this._name;
+    get _name(): string{
+        return this.name;
     }
 
-    get email(): string{
-        return this._email;
+    get _email(): string{
+        return this.email;
     }
 
-    get password(): string{
-        return this._password;
+    get _password(): string{
+        return this.password;
     }
 
-    get admin(): boolean{
-        return this._admin;
+    get _admin(): boolean{
+        return this.admin;
     }
 }
+
+export const UserModel = getModelForClass(User);
