@@ -18,5 +18,6 @@
   "bugs": {
     "url": "https://github.com/ivb98/elibrary/issues"
   },
-  "homepage": "https://github.com/ivb98/elibrary#readme"
+  "homepage": "https://github.com/ivb98/elibrary#readme",
+  "devDependencies": {}
 }
