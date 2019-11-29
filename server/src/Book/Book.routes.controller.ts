@@ -5,16 +5,16 @@ import path from 'path';
 import constants from '../constants/constants';
 import { TextToSpeech } from '../TextToSpeech/TextToSpeech';
 import { FileStorage } from '../FileStorage/FileStorage';
+import { BookRepository } from './Book.repository';
 
 export class BookRoutesController {
 
     public static async addBook(req: Request, res: Response, next: NextFunction){
      
         const files = (<any> req).files;
-        let {author, title} = req.body;
-        author = author.replace(/ /g, '');
-        title = title.replace(/ /g, '');
-
+        const {author, title} = req.body;
+        let author_no_wspaces = author.replace(/ /g, '');
+        let title_no_wspaces = title.replace(/ /g, '');
 
         let data = (<any> files).bookfile;
     
@@ -23,11 +23,12 @@ export class BookRoutesController {
 
         let txtdata: string = fs.readFileSync(savedPath).toString();
 
-        let mp3_filepath: string = await TextToSpeech.convertText(txtdata, `${author}_${title}`);
+        let mp3_filepath: string = await TextToSpeech.convertText(txtdata, `${author_no_wspaces}_${title_no_wspaces}`);
         let mp3_data =  fs.readFileSync(mp3_filepath);
         
-        let uploaded_txt = await FileStorage.uploadFile(txtdata, `${author}_${title}.txt`);
-        let uploaded_mp3 = await FileStorage.uploadFile(mp3_data, `${author}_${title}.mp3`)
+        //let uploaded_txt = await FileStorage.uploadFile(txtdata, `${author_no_wspaces}_${title_no_wspaces}.txt`);
+        //let uploaded_mp3 = await FileStorage.uploadFile(mp3_data, `${author_no_wspaces}_${title_no_wspaces}.mp3`);
+        let savedBook = await BookRepository.save(new Book(author, title));
 
         res.send("Book Uploaded")
     }
