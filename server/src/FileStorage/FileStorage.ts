@@ -1,6 +1,7 @@
 import AWS from 'aws-sdk';
 import fs from 'fs';
 import util from 'util';
+import constants from '../constants/constants';
 
 export class FileStorage{
 
@@ -17,5 +18,22 @@ export class FileStorage{
 
         let uploadedPath = await asyncUpload(params);
         return uploadedPath;
+    }
+
+    public static async downloadFile(filename: string): Promise<string>{
+        return new Promise((resolve, reject)=>{
+            let options = {
+                Bucket    : process.env.BUCKET_NAME,
+                Key    : filename,
+            };
+        
+            let fileStream = FileStorage.s3.getObject(options).createReadStream();
+            let tmp_filepath = constants.tmp_files_dir + '/' + filename
+            let stream = fs.createWriteStream(tmp_filepath);
+            fileStream.pipe(stream);
+            fileStream.on('end', ()=>{
+                resolve(tmp_filepath)
+            })
+        })
     }
 }
