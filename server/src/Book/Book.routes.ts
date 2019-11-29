@@ -10,7 +10,8 @@ class BookRoutes{
 
     private initializeRoutes(): void{
         this.router.post('/', BookRoutesController.addBook);
-        this.router.get('/:book_id', BookRoutesController.getBookText)
+        this.router.get('/:book_id', BookRoutesController.getBookText);
+        this.router.get('/audio/:book_id', BookRoutesController.getBookAudio);
     }
 }
 

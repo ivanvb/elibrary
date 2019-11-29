@@ -38,7 +38,7 @@ export class FileStorage{
         })
     }
 
-    public static async getFileLink(filename: string){
+    public static async getFileLink(filename: string): Promise<string>{
         return new Promise(function (resolve, reject){
             var options = {
                 keypairId: process.env.CLOUDFRONT_ACCESS_KEY_ID,

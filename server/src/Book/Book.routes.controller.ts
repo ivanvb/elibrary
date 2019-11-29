@@ -50,4 +50,15 @@ export class BookRoutesController {
             res.send({text});
         }
     }
+
+    public static async getBookAudio(req: Request, res: Response, next: NextFunction){
+        if(Auth.isAuthenticated(req)){
+            const {book_id} = req.params;
+            const book: Book = await BookRepository.findOne(book_id);
+            let bookName = util.generateBookFilename({author: book.__author, title: book.__title});
+
+            let fileUrl: string = await FileStorage.getFileLink(bookName + ".mp3");
+            res.send({fileUrl});
+        }
+    }
 }
