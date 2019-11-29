@@ -4,3 +4,4 @@ node_modules/
 dist/
 client/build/
 server/tmp/
+config/
