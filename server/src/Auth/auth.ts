@@ -6,7 +6,7 @@ export class Auth{
     public static addAuthCookies(req: Request, user: User): Request{
         req.session.user = {
             admin: user._admin,
-            id: user.__id
+            _id: user.__id
         }
 
         return req;

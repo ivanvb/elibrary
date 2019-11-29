@@ -27,7 +27,7 @@ export class UserRoutesController {
         const user: User = new User(name, email, password);
         const saved = await UserRepository.save(user);
 
-        Auth.addAuthCookies(req, user);
+        Auth.addAuthCookies(req, saved);
         res.send({saved});
     }
 }

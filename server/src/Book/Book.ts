@@ -8,13 +8,14 @@ export class Book{
     private author: string;
     @prop()
     private title: string;
-    @prop()
+    @prop({ref: "User"})
     private aggregator: Ref<User>;
 
     constructor(author: string, title: string, aggregator? : Ref<User>, _id ? : Ref<Book>){
         this._id = _id;
         this.author =  author;
         this.title = title;
+        if(aggregator) this.aggregator = aggregator;
     }
 
     get __id(): Ref<Book>{
