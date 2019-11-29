@@ -12,6 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "@typegoose/typegoose": "^6.1.5",
+    "aws-cloudfront-sign": "^2.2.0",
     "aws-sdk": "^2.580.0",
     "bcrypt": "^3.0.7",
     "cors": "^2.8.5",

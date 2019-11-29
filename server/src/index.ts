@@ -6,6 +6,7 @@ import path from 'path';
 import session, {SessionOptions} from 'express-session';
 import { userRoutes } from './User/User.routes';
 import { bookRoutes } from './Book/Book.routes';
+import { FileStorage } from './FileStorage/FileStorage';
 
 let app: express.Application = express();
 (async function main(){

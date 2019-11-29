@@ -2,6 +2,7 @@ import AWS from 'aws-sdk';
 import fs from 'fs';
 import util from 'util';
 import constants from '../constants/constants';
+import awsCloudFront from 'aws-cloudfront-sign';
 
 export class FileStorage{
 
@@ -34,6 +35,18 @@ export class FileStorage{
             fileStream.on('end', ()=>{
                 resolve(tmp_filepath)
             })
+        })
+    }
+
+    public static async getFileLink(filename: string){
+        return new Promise(function (resolve, reject){
+            var options = {
+                keypairId: process.env.CLOUDFRONT_ACCESS_KEY_ID,
+                privateKeyPath: process.env.CLOUDFRONT_PRIVATE_KEY_PATH
+            };
+    
+            var signedUrl =  awsCloudFront.getSignedUrl(process.env.CLOUDFRONT_URL + "/" + filename, options);
+            resolve(signedUrl);
         })
     }
 }
