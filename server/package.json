@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "tsc && node ./dist/src/index.js --prod",
-    "dev": "tsc && node ./dist/index.js"
+    "start": "tsc && node -r dotenv/config ./dist/src/index.js --prod",
+    "dev": "tsc && node -r dotenv/config ./dist/index.js"
   },
   "keywords": [],
   "author": "",
@@ -17,6 +17,7 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "mongoose": "^5.7.12",
+    "simple-encryptor": "^3.0.0",
     "tsc": "^1.20150623.0"
   },
   "devDependencies": {
