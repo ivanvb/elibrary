@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import express from 'express';
+import fileupload from 'express-fileupload';
 import cors from 'cors';
 import { userRoutes } from './User/User.routes';
 import { bookRoutes } from './Book/Book.routes';
@@ -14,10 +15,15 @@ let app: express.Application = express();
     });
 
     app.use(cors());
+    app.use(fileupload({
+        useTempFiles : true,
+        tempFileDir : '/tmp/'
+    }));
     app.use(express.json());
+    app.use(express.urlencoded({extended: false}));
+
     app.use('/user', userRoutes);
     app.use('/book', bookRoutes);
-    app.use(express.urlencoded({extended: false}));
 
     const port: number = Number(process.env.PORT) || 3000;
     app.listen(port);
