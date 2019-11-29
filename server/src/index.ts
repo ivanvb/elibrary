@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 import express from 'express';
 import fileupload from 'express-fileupload';
 import cors from 'cors';
+import path from 'path';
 import { userRoutes } from './User/User.routes';
 import { bookRoutes } from './Book/Book.routes';
 
@@ -15,10 +16,7 @@ let app: express.Application = express();
     });
 
     app.use(cors());
-    app.use(fileupload({
-        useTempFiles : true,
-        tempFileDir : '/tmp/'
-    }));
+    app.use(fileupload());
     app.use(express.json());
     app.use(express.urlencoded({extended: false}));
 
