@@ -9,7 +9,7 @@ export class TextToSpeech{
     });
 
 
-    public static convertText(text: string, filename: string): Promise<string>{
+    public static convertText(text: string, filename: string): Promise<Buffer>{
         let tmp_filepath: string = path.join(path.resolve(__dirname, '../..'), '/tmp/');
 
         !fs.existsSync(tmp_filepath) && fs.mkdirSync(tmp_filepath);
@@ -26,15 +26,7 @@ export class TextToSpeech{
                     console.log(err.code)
                 } else if (data) {
                     if (data.AudioStream instanceof Buffer) {
-                        let filepath = path.join(tmp_filepath, `${filename}.mp3`);
-
-                        fs.writeFile(filepath, data.AudioStream, (err: Error)=>{
-                            if(!err){
-                                resolve(filepath);
-                            } else {
-                                reject(err);
-                            }
-                        })
+                        resolve(data.AudioStream);
                     } else {
                         reject();
                     }

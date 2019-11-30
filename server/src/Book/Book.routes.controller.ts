@@ -19,17 +19,13 @@ export class BookRoutesController {
             let bookFilenameMp3 = util.generateBookFilename({author, title}) + ".mp3";
     
             let data = (<any> files).bookfile;
-        
-            let savedPath = path.join(constants.tmp_files_dir, `/${data.name}`)
-            await data.mv(savedPath)
     
-            let txtdata: string = fs.readFileSync(savedPath).toString();
+            let txtdata: string = Buffer.from(data.data, 'hex').toString('utf8')
     
-            let mp3_filepath: string = await TextToSpeech.convertText(txtdata, bookFilenameTxt);
-            let mp3_data =  fs.readFileSync(mp3_filepath);
+            let mp3_content: Buffer = await TextToSpeech.convertText(txtdata, bookFilenameTxt);
             
             let uploaded_txt = await FileStorage.uploadFile(txtdata, bookFilenameTxt);
-            let uploaded_mp3 = await FileStorage.uploadFile(mp3_data, bookFilenameMp3);
+            let uploaded_mp3 = await FileStorage.uploadFile(mp3_content, bookFilenameMp3);
             let savedBook = await BookRepository.save(new Book(author, title, req.session.user._id));
     
             res.send("Book Uploaded")
