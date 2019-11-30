@@ -1,8 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
 import { Book } from './Book';
-import fs from 'fs';
-import path from 'path';
-import constants from '../constants/constants';
 import { TextToSpeech } from '../TextToSpeech/TextToSpeech';
 import { FileStorage } from '../FileStorage/FileStorage';
 import { BookRepository } from './Book.repository';
@@ -19,13 +16,12 @@ export class BookRoutesController {
             let bookFilenameMp3 = util.generateBookFilename({author, title}) + ".mp3";
     
             let data = (<any> files).bookfile;
-    
             let txtdata: string = Buffer.from(data.data, 'hex').toString('utf8')
     
-            let mp3_content: Buffer = await TextToSpeech.convertText(txtdata, bookFilenameTxt);
+            let mp3_content: Buffer = await TextToSpeech.convertText(txtdata);
             
-            let uploaded_txt = await FileStorage.uploadFile(txtdata, bookFilenameTxt);
-            let uploaded_mp3 = await FileStorage.uploadFile(mp3_content, bookFilenameMp3);
+            await FileStorage.uploadFile(txtdata, bookFilenameTxt);
+            await FileStorage.uploadFile(mp3_content, bookFilenameMp3);
             let savedBook = await BookRepository.save(new Book(author, title, req.session.user._id));
     
             res.send("Book Uploaded")
@@ -53,8 +49,8 @@ export class BookRoutesController {
             const book: Book = await BookRepository.findOne(book_id);
             let bookName = util.generateBookFilename({author: book.__author, title: book.__title});
 
-            let fileUrl: string = await FileStorage.getFileLink(bookName + ".mp3");
-            res.send({fileUrl});
+            const textBuffer: Buffer = await FileStorage.downloadFile(bookName + ".mp3");
+            (<any>res).sendSeekable(textBuffer);
         }
     }
 }

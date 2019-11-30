@@ -2,11 +2,10 @@ import mongoose from 'mongoose';
 import express from 'express';
 import fileupload from 'express-fileupload';
 import cors from 'cors';
-import path from 'path';
 import session, {SessionOptions} from 'express-session';
 import { userRoutes } from './User/User.routes';
 import { bookRoutes } from './Book/Book.routes';
-import { FileStorage } from './FileStorage/FileStorage';
+import sendSeekable from 'send-seekable';
 
 let app: express.Application = express();
 (async function main(){
@@ -26,11 +25,12 @@ let app: express.Application = express();
     app.use(cors());
     app.use(fileupload());
     app.use(express.json());
+    app.use(sendSeekable);
     app.use(express.urlencoded({extended: false}));
 
     app.use('/user', userRoutes);
     app.use('/book', bookRoutes);
 
-    const port: number = Number(process.env.PORT) || 3000;
+    const port: number = Number(process.env.PORT) || 3001;
     app.listen(port);
 })()

@@ -1,6 +1,4 @@
 import AWS from 'aws-sdk';
-import fs from 'fs';
-import path from 'path';
 
 export class TextToSpeech{
     private static Polly: AWS.Polly = new AWS.Polly({
@@ -9,11 +7,7 @@ export class TextToSpeech{
     });
 
 
-    public static convertText(text: string, filename: string): Promise<Buffer>{
-        let tmp_filepath: string = path.join(path.resolve(__dirname, '../..'), '/tmp/');
-
-        !fs.existsSync(tmp_filepath) && fs.mkdirSync(tmp_filepath);
-
+    public static convertText(text: string): Promise<Buffer>{
         return new Promise((resolve , reject)=>{
             let params = {
                 'Text': text,
