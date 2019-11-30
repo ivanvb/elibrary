@@ -21,7 +21,7 @@ export class FileStorage{
         return uploadedPath;
     }
 
-    public static async downloadFile(filename: string): Promise<string>{
+    public static async downloadFile(filename: string): Promise<Buffer>{
         return new Promise((resolve, reject)=>{
             let options = {
                 Bucket    : process.env.BUCKET_NAME,
@@ -29,11 +29,10 @@ export class FileStorage{
             };
         
             let fileStream = FileStorage.s3.getObject(options).createReadStream();
-            let tmp_filepath = constants.tmp_files_dir + '/' + filename
-            let stream = fs.createWriteStream(tmp_filepath);
-            fileStream.pipe(stream);
+            const chunks = [];
+            fileStream.on('data', data => chunks.push(data));
             fileStream.on('end', ()=>{
-                resolve(tmp_filepath)
+                resolve(Buffer.concat(chunks));
             })
         })
     }

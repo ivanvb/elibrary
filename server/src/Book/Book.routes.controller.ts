@@ -40,8 +40,8 @@ export class BookRoutesController {
             const book: Book = await BookRepository.findOne(book_id);
             let bookName = util.generateBookFilename({author: book.__author, title: book.__title});
 
-            const downloadPath = await FileStorage.downloadFile(bookName + ".txt");
-            const text = fs.readFileSync(downloadPath, 'utf8');
+            const textBuffer: Buffer = await FileStorage.downloadFile(bookName + ".txt");
+            const text: string = textBuffer.toString();
 
             res.send({text});
         }
