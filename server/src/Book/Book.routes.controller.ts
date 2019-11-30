@@ -53,4 +53,17 @@ export class BookRoutesController {
             (<any>res).sendSeekable(textBuffer);
         }
     }
+
+    public static async deleteBook(req: Request, res: Response, next: NextFunction){
+        if(Auth.isAuthenticated(req)){
+            const {book_id} = req.params;
+            const book: Book = await BookRepository.findOne(book_id);
+            let bookName = util.generateBookFilename({author: book.__author, title: book.__title});
+
+            await FileStorage.deleteFiles([bookName + ".txt", bookName + ".mp3"]);
+            const deleted: boolean = await BookRepository.deleteOne(book_id);
+
+            res.sendStatus(200);
+        }
+    }
 }

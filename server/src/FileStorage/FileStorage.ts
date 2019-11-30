@@ -33,4 +33,21 @@ export class FileStorage{
             })
         })
     }
+
+    public static async deleteFiles(filenames: string[]){
+        let deleteKeys = filenames.map(filename => {
+            return {Key: filename}
+        });
+
+        let options = {
+            Bucket    : process.env.BUCKET_NAME,
+            Delete: {
+                Objects: deleteKeys,
+                Quiet: true
+            }
+        };
+
+        let asyncDelete = util.promisify(FileStorage.s3.deleteObjects.bind(FileStorage.s3));
+        await asyncDelete(options);
+    }
 }

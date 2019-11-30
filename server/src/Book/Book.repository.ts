@@ -10,4 +10,9 @@ export class BookRepository{
         const found = await BookModel.findOne({_id});
         return found;
     }
+
+    public static async deleteOne(_id: string): Promise<boolean>{
+        const deleted = await BookModel.deleteOne({_id});
+        return !!deleted;
+    }
 }
