@@ -15,4 +15,12 @@ export class BookRepository{
         const deleted = await BookModel.deleteOne({_id});
         return !!deleted;
     }
+
+    public static async updateOne(_id: string, author? : string, title ? : string){
+        let updateObject = {};
+        if(author) updateObject['author'] = author;
+        if(title) updateObject['title'] = title;
+
+        const updated = await BookModel.updateOne({_id}, updateObject);
+    }
 }

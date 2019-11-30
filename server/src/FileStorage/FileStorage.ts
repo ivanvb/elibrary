@@ -50,4 +50,16 @@ export class FileStorage{
         let asyncDelete = util.promisify(FileStorage.s3.deleteObjects.bind(FileStorage.s3));
         await asyncDelete(options);
     }
+
+    public static async renameFile(filename: string, newFilename: string){
+        let options = {
+            Bucket    : process.env.BUCKET_NAME,
+            CopySource: process.env.BUCKET_NAME + "/" + filename,
+            Key    : newFilename,
+        };
+
+        let asyncCopy = util.promisify(FileStorage.s3.copyObject.bind(FileStorage.s3));
+        await asyncCopy(options);
+        await FileStorage.deleteFiles([filename]);
+    }
 }

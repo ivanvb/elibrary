@@ -13,6 +13,7 @@ class BookRoutes{
         this.router.get('/:book_id', BookRoutesController.getBookText);
         this.router.get('/audio/:book_id', BookRoutesController.getBookAudio);
         this.router.delete('/:book_id', BookRoutesController.deleteBook);
+        this.router.put('/:book_id', BookRoutesController.updateBook);
     }
 }
 
