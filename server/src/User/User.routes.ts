@@ -9,7 +9,9 @@ class UserRoutes{
 
     private initializeRoutes(): void{
         this.router.post('/login', UserRoutesController.logIn);
-        this.router.post('/signup', UserRoutesController.signUp)
+        this.router.post('/signup', UserRoutesController.signUp);
+        this.router.get('/', UserRoutesController.getLoggedUser);
+        this.router.post('/signout', UserRoutesController.signOut);
     }
 }
 

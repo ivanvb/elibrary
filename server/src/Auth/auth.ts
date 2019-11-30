@@ -19,4 +19,12 @@ export class Auth{
     public static isAuthenticated(req: Request): boolean{
         return !!req.session.user && !!req.session.user._id
     }
+
+    public static logOut(req: Request): Promise<boolean>{
+        return new Promise((resolve, reject)=>{
+            req.session.destroy((err)=>{
+                resolve(true);
+            });
+        })
+    }
 }
