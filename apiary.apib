@@ -1,0 +1,192 @@
+FORMAT: 1A
+HOST: http://polls.apiblueprint.org/
+
+# eLibrary
+
+El API de eLibrary permite a los usuarios registrarse dentro del servicio
+si aún no lo están, y, en caso de estarlo permite a los mismos acceder a todos
+los libros que ha subido la comunidad de administradores de la plataforma.
+
+De igual forma, permite que los administradores suban libros, los editen y los eliminen
+según crean conveniente.
+
+# Group User
+En esta sección se especifican las acciones que puede tomar un usuario dentro de la
+aplicación.
+
+## Sign Up [/user/signup]
+Permite registrar un usuario en la aplicación.
+
+### Registra a un usuario [POST]
+
++ Request (application/json)
+    + Attributes (User Register)
+        
++ Response 200 (application/json)
+    + Attributes (User Expanded)
+    
+## Check current User [/user]
+Devuelve al usuario actual logeado en la sesión que envió la petición.
+
+### Obtiene informacion del Usuario Logeado [GET]
+
++ Response 200 (application/json)
+    + Attributes (User Expanded)
+    
+## Log In [/user/login]
+Logea a un usuario a la aplicación.
+
+### Hace Log In a un Usuario [POST]
+
++ Request (application/json)
+    + Attributes (User Base)
+
++ Response 200 (application/json)
+    + Attributes (User Expanded)
+
+## Log Out [/user/logout]
+Deslogea a un usuario de la aplicación.
+
+### Hace Log Out a un [POST]
+
++ Request (application/json)
+    
++ Response 200
+    
+
+# Group Book
+En esta sección se especifican las acciones que pueden realizarse sobre los libros
+dentro de la aplicación.
+
+## Agregar y Obtener [/book/]
+Operaciones de agregar un libro nuevo y obtener todos los libros.
+
+### Obtiene todos los libros [GET]
+
++ Response 200 (application/json)
+    + Attributes (array[Book Base])
+    
+
+### Agregar un libro [POST]
+
++ Request (multipart/form-data)
+    + Attributes(Book Base)
+        
+        
++ Response 200 (application/json)
+
+
+## Trabajar sobre un libro en específico [/book/{id}]
+
++ Parameters
+    + id (string)
+        
+        Id del libro que se va a manipular.
+
+### Editar un libro [PUT]
+
++ Request (multipart/form-data)
+    + Attributes(Editable Book)
+
++ Response 200 (application/json)
+
+### Obtener un libro [GET]
+
++ Response 200 (application/json)
+    + Attributes(Book Base)
+
+
+
+## Contenido de un libro [/book/text/{id}]
+Devuelve el contenido en texto de un libro.
+
++ Parameters
+    + id (string)
+        
+        Id del libro cuyo texto se va a obtener.
+
+### Obtener texto de un libro [GET]
+
++ Response 200 (application/json)
+
+        {
+            "text": "loren ipsum ..."
+        }
+
+
+    
+## AudioLibros [/book/audio/{id}]
+Devuelve un stream con el audio del solicitado.
+
++ Parameters
+    + id (string)
+        
+        Id del libro cuyo audio se va a obtener.
+
+### Obtener audio de un libro [GET]
+
++ Response 200 (audio/mpeg)
+        
+# Data Structures
+
+## User Base (object)
+
++ name: Test User (string, required)
+
+    Nombre con el que el usuario se registró en la aplicación.
+
++ email: test@example.com (string, required)
+
+    Email con el que el usuario se registró en la aplicación. Debe ser único.
+    
+## User Register (object)
+
++ Include User Base
++ password: mypassword (string, required)
+    
+        Password con el que el usuario se registró en la aplicación
+        
+## User Expanded (object)
+
++ Include User Base
++ admin: false (boolean, required)
+
+        Especifica si el usuario es un administrador o no.
+        
+## Book Base (object)
+
++ title: Test Book Title (string, required)
+
+    Título del libro.
+    
++ author: Test Book Author (string, required)
+
+    Autor del libro.
+
+## Book with Creator (object)
+
++ Include Book Base
++ creator: 5de152ccf430534f345bb17e (string, required)
+
+    Id del administrador que agregó el libro a la aplicación.
+
+## Book with File (object)
+
++ Include Book Base
++ bookfile: a txt file (object, required)
+        
+    Archivo de texto con el contenido del libro.
+        
+## Editable Book (object)
+
++ title: Test Book Title (string)
+
+    Título actualizado del libro.
+    
++ author: Test Book Author (string)
+
+    Autor actualizdo del libro.
+    
++ bookfile: a txt file (object)
+
+    Archivo de texto con el contenido actualizado
