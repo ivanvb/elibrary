@@ -1,23 +1,33 @@
 {
-  "name": "elibrary",
-  "version": "1.0.0",
-  "description": "proyecto final diseno y analisis de sistemas",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ivb98/elibrary.git"
-  },
-  "keywords": [
-    "book"
-  ],
-  "author": "irwin e ivan",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/ivb98/elibrary/issues"
-  },
-  "homepage": "https://github.com/ivb98/elibrary#readme",
-  "devDependencies": {}
-}
+    "name": "elibrary",
+    "version": "1.0.0",
+    "description": "proyecto final diseno y analisis de sistemas",
+    "main": "index.js",
+    "scripts": {
+      "server": "npm run --prefix ./server/ start",
+      "client": "npm run --prefix ./client/ build",
+      "start": "npm run client && npm run server"
+    },
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/ivb98/elibrary.git"
+    },
+    "keywords": [
+      "book"
+    ],
+    "author": "irwin e ivan",
+    "license": "ISC",
+    "bugs": {
+      "url": "https://github.com/ivb98/elibrary/issues"
+    },
+    "homepage": "https://github.com/ivb98/elibrary#readme",
+    "devDependencies": {},
+    "dependencies": {
+      "elibrary-server": "file:server",
+      "client": "file:client"
+    },
+    "engines": {
+      "node": "12.13.0"
+    }
+  }
+  
