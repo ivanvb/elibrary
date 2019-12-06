@@ -1,14 +1,11 @@
 import React, {useContext} from 'react';
 import UserRegister from './UserRegister/UserRegister.screen';
 import UserLogin from './UserLogin/UserLogin.screen';
-import BookForm from './Shared/forms/Book.form';
 import CreateBook from './CreateBook/CreateBook.screen';
 import EditBook from './EditBook/EditBook.screen';
 import HomeScreen from './HomeScreen/HomeScreen.screen';
-import ReadBook from './ReadBook/ReadBook.screen';
-import Audio from './AudioComponent/Audio';
 import BookDetails from './BookDetails/BookDeatils.screen';
-import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
+import {BrowserRouter as Router, Switch} from 'react-router-dom';
 import UserProfile from './UserProfile/UserProfile.screen';
 import {UserContext} from './Shared/context/User.context';
 import AppNavbar from './Shared/Navbar/AppNavbar';

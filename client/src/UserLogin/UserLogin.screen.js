@@ -54,7 +54,7 @@ export class UserLogin extends Component {
                 <form onSubmit={this.submit}>
                     <div className="form-group">
                         <label>Email Address</label>
-                        <input className="form-control" onChange={this.handleChange} name="email" value={this.state.email} />
+                        <input type="email" className="form-control" onChange={this.handleChange} name="email" value={this.state.email} />
                     </div>
                     <div className="form-group">
                         <label>Password</label>

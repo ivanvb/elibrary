@@ -61,7 +61,7 @@ export class UserRegister extends Component {
                     </div>
                     <div className="form-group">
                         <label>email</label>
-                        <input className="form-control" onChange={this.handleChange} name="email" value={this.state.email}/>
+                        <input type="email" className="form-control" onChange={this.handleChange} name="email" value={this.state.email}/>
                     </div>
                     <div className="form-group">
                         <label>passowrd</label>

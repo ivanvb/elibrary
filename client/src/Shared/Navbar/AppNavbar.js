@@ -21,11 +21,11 @@ const AppNavbar = (props) => {
             
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse>
-                {!user.isAuthenticated && pathname != '/signup' &&
+                {!user.isAuthenticated && pathname !== '/signup' &&
                 <LinkContainer to="/signup" activeClassName="active">
                     <Nav.Item as={Nav.Link}>Sign Up</Nav.Item>
                 </LinkContainer>}
-                {!user.isAuthenticated && pathname != '/login' && 
+                {!user.isAuthenticated && pathname !== '/login' && 
                 <LinkContainer to="/login" activeClassName="active">
                     <Nav.Item as={Nav.Link}>Log In</Nav.Item>
                 </LinkContainer>}
@@ -42,7 +42,7 @@ const AppNavbar = (props) => {
                     <Nav.Item as={Nav.Link}>{user.name}</Nav.Item>
                 </LinkContainer>}
                 {user.isAuthenticated && <Nav.Item as={Nav.Link} onClick={async ()=>{
-                    let res = await fetch('/user/signout/', {method: 'POST'});
+                    await fetch('/user/signout/', {method: 'POST'});
                     setUser((user)=> {
                         user = {isAuthenticated: false};
                         return user;

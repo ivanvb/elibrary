@@ -6,9 +6,6 @@ import Card from 'react-bootstrap/Card';
 const BookList = (props) => {
     let [user] = useContext(UserContext);
 
-    function nextPath(path) {
-        props.history.push(path);
-    }
     let booklist = props.books.map((book, index) =>{
         return (
             <Card key={index} className="col-sm-6 col-md-4 col-lg-3">
