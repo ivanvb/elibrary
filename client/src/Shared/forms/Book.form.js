@@ -29,12 +29,12 @@ export class BookForm extends Component {
 
     async submit(e){
         e.preventDefault();
-
         let data = new FormData();
-        data.append('title', this.state.title);
-        data.append('author', this.state.author);
-        data.append('bookfile', this.state.bookfile);
 
+        if(this.state.title) data.append('title', this.state.title);
+        if(this.state.author) data.append('author', this.state.author);
+        if(this.state.bookfile) data.append('bookfile', this.state.bookfile);
+        
         this.props.handleSubmit(data);
     }
 
