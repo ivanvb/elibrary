@@ -2,7 +2,7 @@ import React, {useContext} from 'react';
 import {LinkContainer} from 'react-router-bootstrap';
 import {UserContext} from '../../Shared/context/User.context';
 import {withRouter} from 'react-router-dom';
-
+import Card from 'react-bootstrap/Card';
 const BookList = (props) => {
     let [user] = useContext(UserContext);
 
@@ -11,34 +11,32 @@ const BookList = (props) => {
     }
     let booklist = props.books.map((book, index) =>{
         return (
-            <div className="row" key={index} >
-                <LinkContainer style={{cursor: "pointer"}} to={{
-                    pathname: '/details/',
-                    _id: book._id
-                }}>
-                    <div className="col">{book.title} by {book.author}</div>
-                </LinkContainer>
-
-                {user._id === book.aggregator && 
-                <LinkContainer style={{cursor: "pointer"}} to={{
-                    pathname: '/editBook/',
-                    _id: book._id
-                }}>
-                    <button onClick={()=>{nextPath('/editbook')}}>edita</button>
-                </LinkContainer>}
-
-                {user._id === book.aggregator && 
-                <LinkContainer style={{cursor: "pointer"}} to={{
-                    pathname: '/delete/',
-                    _id: book._id,
-                    author: book.author,
-                    title: book.title
-                }}><button>delete</button></LinkContainer>}
-            </div>
+            <Card key={index} className="col-sm-6 col-md-4 col-lg-3">
+                <Card.Body>
+                    <Card.Title>{book.title}</Card.Title>
+                    <Card.Text>by {book.author}</Card.Text>
+                    {user._id === book.aggregator &&
+                    <LinkContainer style={{cursor: "pointer"}} to={{
+                        pathname: '/editbook/',
+                        _id: book._id
+                    }}>
+                        <Card.Link>Edit book</Card.Link>
+                    </LinkContainer>}
+                    {user._id === book.aggregator && 
+                    <LinkContainer style={{cursor: "pointer"}} to={{
+                        pathname: '/delete/',
+                        _id: book._id,
+                        author: book.author,
+                        title: book.title
+                    }}>
+                        <Card.Link>Delete Book</Card.Link>    
+                    </LinkContainer>}
+                </Card.Body>
+            </Card>
         )
     })
     return (
-        <div>
+        <div className="row">
             {booklist}
         </div>
     );
