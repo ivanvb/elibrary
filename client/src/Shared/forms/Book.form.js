@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Button from 'react-bootstrap/Button';
 
 export class BookForm extends Component {
     constructor(props){
@@ -40,12 +41,24 @@ export class BookForm extends Component {
 
     render() {
         return (
-            <form onSubmit={this.submit}>
-                <input name="title" onChange={this.handleChange} value={this.state.title}/>
-                <input name="author" onChange={this.handleChange} value={this.state.author}/>
-                <input type="file" name="bookfile" onChange={this.handleFileSubmit}/>
-                <button onSubmit={this.submit}>submit</button>
-            </form>
+            <>
+                <form onSubmit={this.submit}>
+                    <div className="form-group">
+                        <label>Book Title</label>
+                        <input className="form-control" name="title" onChange={this.handleChange} value={this.state.title}/>
+                    </div>
+                    <div className="form-group">
+                        <label>Book Author</label>
+                        <input className="form-control" name="author" onChange={this.handleChange} value={this.state.author}/>
+                    </div>
+                    <div className="custom-file mb-3">
+                        <label className="custom-file-label">Book File</label>
+                        <input className="custom-file-input" type="file" name="bookfile" onChange={this.handleFileSubmit}/>
+                    </div>
+
+                    <Button type="submit">submit</Button>
+                </form>
+            </>
         );
     }
 }

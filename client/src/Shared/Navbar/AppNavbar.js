@@ -11,7 +11,7 @@ const AppNavbar = (props) => {
     
     return (
         <Navbar
-        collapseOnSelect expand="sm" bg="light" variant="light">
+        collapseOnSelect className="mb-3" expand="sm" bg="light" variant="light">
             
             <LinkContainer exact={true} to="/" activeClassName="active">
                 <Nav.Item as={AppNavbar.Brand}>

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { UserContext } from '../Shared/context/User.context';
 import withAlert from '../Shared/hoc/withAlert';
+import Button from 'react-bootstrap/Button';
 
 export class UserLogin extends Component {
     constructor(props){
@@ -35,7 +36,6 @@ export class UserLogin extends Component {
             })
         });
 
-        console.log(req.status);
         if(req.status === 200){
             let json = await req.json();
             const [, setUser] = this.context;
@@ -49,11 +49,21 @@ export class UserLogin extends Component {
 
     render() {
         return (
-            <form onSubmit={this.submit}>
-                <input onChange={this.handleChange} name="email" value={this.state.email} />
-                <input onChange={this.handleChange} name="password" value={this.state.password}/>
-                <button type="submit">Submit</button>
-            </form>
+            <>
+                <h1 className="mb-3">Login</h1>
+                <form onSubmit={this.submit}>
+                    <div className="form-group">
+                        <label>Email Address</label>
+                        <input className="form-control" onChange={this.handleChange} name="email" value={this.state.email} />
+                    </div>
+                    <div className="form-group">
+                        <label>Password</label>
+                        <input className="form-control" type="password" onChange={this.handleChange} name="password" value={this.state.password}/>
+                    </div>
+                    
+                    <Button type="submit" variant="primary">Submit</Button>
+                </form>
+            </>
         );
     }
 }

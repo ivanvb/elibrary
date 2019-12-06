@@ -21,49 +21,51 @@ function App() {
     <div className="App">
         <Router>
             <AppNavbar/>
-            <Switch>
-                <ProtectedRoute 
-                    path="/createBook" 
-                    pathToRedir="/"
-                    condition={user.isAuthenticated && user.admin}
-                    component={CreateBook}/>
-                <ProtectedRoute 
-                    path="/editBook" 
-                    pathToRedir="/"
-                    condition={user.isAuthenticated && user.admin}
-                    component={EditBook}/>
-                <ProtectedRoute
-                    path="/login"
-                    pathToRedir="/"
-                    condition={!user.isAuthenticated}
-                    component={UserLogin}/>
-                <ProtectedRoute
-                    path="/signup"
-                    pathToRedir="/"
-                    condition={!user.isAuthenticated}
-                    component={UserRegister}/>
-                <ProtectedRoute
-                    path="/"
-                    pathToRedir="/login"
-                    condition={user.isAuthenticated}
-                    component={HomeScreen}
-                    exact/>
-                <ProtectedRoute
-                    path="/myprofile"
-                    pathToRedir="/login"
-                    condition={user.isAuthenticated}
-                    component={UserProfile}/>
-                <ProtectedRoute
-                    path="/details"
-                    pathToRedir="/login"
-                    condition={user.isAuthenticated}
-                    component={BookDetails}/>
-                <ProtectedRoute
-                    path="/delete"
-                    pathToRedir="/login"
-                    condition={user.isAuthenticated}
-                    component={DeleteBook}/>
-            </Switch>
+            <div className="container">
+                <Switch>
+                    <ProtectedRoute 
+                        path="/createBook" 
+                        pathToRedir="/"
+                        condition={user.isAuthenticated && user.admin}
+                        component={CreateBook}/>
+                    <ProtectedRoute 
+                        path="/editBook" 
+                        pathToRedir="/"
+                        condition={user.isAuthenticated && user.admin}
+                        component={EditBook}/>
+                    <ProtectedRoute
+                        path="/login"
+                        pathToRedir="/"
+                        condition={!user.isAuthenticated}
+                        component={UserLogin}/>
+                    <ProtectedRoute
+                        path="/signup"
+                        pathToRedir="/"
+                        condition={!user.isAuthenticated}
+                        component={UserRegister}/>
+                    <ProtectedRoute
+                        path="/"
+                        pathToRedir="/login"
+                        condition={user.isAuthenticated}
+                        component={HomeScreen}
+                        exact/>
+                    <ProtectedRoute
+                        path="/myprofile"
+                        pathToRedir="/login"
+                        condition={user.isAuthenticated}
+                        component={UserProfile}/>
+                    <ProtectedRoute
+                        path="/details"
+                        pathToRedir="/login"
+                        condition={user.isAuthenticated}
+                        component={BookDetails}/>
+                    <ProtectedRoute
+                        path="/delete"
+                        pathToRedir="/login"
+                        condition={user.isAuthenticated}
+                        component={DeleteBook}/>
+                </Switch>
+            </div>
         </Router>
     </div>
   );

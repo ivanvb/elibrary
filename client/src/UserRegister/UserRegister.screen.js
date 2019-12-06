@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { UserContext } from '../Shared/context/User.context';
 import withAlert from '../Shared/hoc/withAlert';
+import Button from 'react-bootstrap/Button';
 
 export class UserRegister extends Component {
 
@@ -51,12 +52,24 @@ export class UserRegister extends Component {
 
     render() {
         return (
-            <form onSubmit={this.submit}>
-                <input onChange={this.handleChange} name="name" value={this.state.name}/>
-                <input onChange={this.handleChange} name="email" value={this.state.email}/>
-                <input type="password" onChange={this.handleChange} name="password" value={this.state.password}/>
-                <button type="submit">Submit</button>
-            </form>
+            <>
+                <h1 className="mb-3">Register</h1>
+                <form onSubmit={this.submit}>
+                    <div className="form-group">
+                        <label>name</label>
+                        <input className="form-control" onChange={this.handleChange} name="name" value={this.state.name}/>
+                    </div>
+                    <div className="form-group">
+                        <label>email</label>
+                        <input className="form-control" onChange={this.handleChange} name="email" value={this.state.email}/>
+                    </div>
+                    <div className="form-group">
+                        <label>passowrd</label>
+                        <input className="form-control" type="password" onChange={this.handleChange} name="password" value={this.state.password}/>
+                    </div>
+                    <Button type="submit">submit</Button>
+                </form>
+            </>
         );
     }
 }
