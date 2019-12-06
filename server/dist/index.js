@@ -43,7 +43,7 @@ let app = express_1.default();
         app.use('/user', User_routes_1.userRoutes);
         app.use('/book', Book_routes_1.bookRoutes);
         app.use(express_1.default.static(path_1.default.join(path_1.default.resolve(__dirname, '..', '..'), '/client/build/')));
-        const port = Number(process.env.PORT) || 3001;
+        const port = Number(process.env.PORT) || 80;
         app.listen(port, () => {
             console.log("listening on " + port);
         });

@@ -33,7 +33,7 @@ let app: express.Application = express();
     app.use('/book', bookRoutes);
     app.use(express.static(path.join(path.resolve(__dirname, '..', '..'), '/client/build/')));
 
-    const port: number = Number(process.env.PORT) || 3001;
+    const port: number = Number(process.env.PORT) || 80;
     app.listen(port, ()=>{
         console.log("listening on " + port);
     });
