@@ -7,6 +7,7 @@ export const UserProvider = (props) => {
         isAuthenticated: false
     })
 
+    console.log(user);
     if(!user.isAuthenticated){
         fetch('/user/')
         .then(async ans =>{

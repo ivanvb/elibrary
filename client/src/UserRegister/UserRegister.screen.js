@@ -36,8 +36,8 @@ export class UserRegister extends Component {
         if(req.status === 200){
             let json = await req.json();
             const [, setUser] = this.context;
-            setUser(()=>{
-                return {...json.data, isAuthenticated: true};
+            await setUser(()=>{
+                return {...json.saved, isAuthenticated: true};
             });
         } else {
             this.props.showAlert({message: 'There was an error creating your account.', variant: 'danger'});
