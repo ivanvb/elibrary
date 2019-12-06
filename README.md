@@ -1,5 +1,6 @@
 # eLibrary
 
+Proyecto final de la clase de Diseño y Analisis de sistemas. La aplicación permite al usuario crear libros, y el servidor se encargará de convertir los mismos a formato de audio y a almacenarlos en la nube.
 ## Configurar el proyecto
 
 Dentro del directorio ```server``` se debe crear un archivo ```.env``` el cual tendrá los valores de

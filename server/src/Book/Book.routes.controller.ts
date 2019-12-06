@@ -12,6 +12,7 @@ export class BookRoutesController {
         if(Auth.isAuthenticated(req) && Auth.isAdmin(req)){
             const {author, title} = req.body;
             let file = (<any>req).files.bookfile;
+            
             if(file.size <= 3000){
                 let bookFilename = util.generateBookFilename({author, title})
             
