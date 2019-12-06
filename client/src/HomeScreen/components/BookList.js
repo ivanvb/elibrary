@@ -13,8 +13,15 @@ const BookList = (props) => {
         return (
             <Card key={index} className="col-sm-6 col-md-4 col-lg-3">
                 <Card.Body>
-                    <Card.Title>{book.title}</Card.Title>
-                    <Card.Text>by {book.author}</Card.Text>
+                    <LinkContainer style={{cursor: "pointer"}} to={{
+                        pathname: '/details',
+                        _id: book._id
+                    }}>
+                        <div className="mb-3">
+                            <Card.Title>{book.title}</Card.Title>
+                            <Card.Text>by {book.author}</Card.Text>
+                        </div>
+                    </LinkContainer>
                     {user._id === book.aggregator &&
                     <LinkContainer style={{cursor: "pointer"}} to={{
                         pathname: '/editbook/',

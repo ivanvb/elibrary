@@ -11,6 +11,7 @@ export class HomeScreen extends Component {
     }
 
     async componentDidMount(){
+        console.log("mounting?")
         let books = (await (await fetch('/book/')).json()).books;
         this.setState({books});
     }

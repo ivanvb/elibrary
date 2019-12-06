@@ -19,7 +19,7 @@ export class BookRoutesController {
     
             res.sendStatus(200);
         } else {
-            res.send("Not authenticated")
+            res.sendStatus(400)
         }
     }
 
@@ -33,6 +33,8 @@ export class BookRoutesController {
             const text: string = textBuffer.toString();
 
             res.send({text});
+        } else {
+            res.sendStatus(400);
         }
     }
 
@@ -44,6 +46,8 @@ export class BookRoutesController {
 
             const textBuffer: Buffer = await FileStorage.downloadFile(bookName + ".mp3");
             (<any>res).sendSeekable(textBuffer);
+        } else {
+            res.sendStatus(400);
         }
     }
 
@@ -57,6 +61,8 @@ export class BookRoutesController {
             const deleted: boolean = await BookRepository.deleteOne(book_id);
 
             res.sendStatus(200);
+        } else {
+            res.sendStatus(400);
         }
     }
 
@@ -88,6 +94,8 @@ export class BookRoutesController {
                 await util.saveTxtAndMp3(bookName, req);
             }
             res.sendStatus(200);
+        } else {
+            res.sendStatus(400);
         }
     }
 
@@ -95,6 +103,8 @@ export class BookRoutesController {
         if(Auth.isAuthenticated(req)){
             let books = await BookRepository.findAll();
             res.send({books});
+        } else {
+            res.sendStatus(400);
         }
     }
 
@@ -103,6 +113,8 @@ export class BookRoutesController {
             const {book_id} = req.params;
             let book = await BookRepository.findOne(book_id);
             res.send({book});
+        } else {
+            res.sendStatus(400);
         }
     }
 }
