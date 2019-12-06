@@ -1,7 +1,6 @@
 codealike.json
 node_modules/
 .env
-dist/
 client/build/
 server/tmp/
 config/
