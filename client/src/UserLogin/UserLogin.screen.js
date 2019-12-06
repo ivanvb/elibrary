@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { UserContext } from '../Shared/context/User.context';
 
 export class UserLogin extends Component {
     constructor(props){
@@ -33,8 +34,13 @@ export class UserLogin extends Component {
             })
         });
 
-        let res = await req.json();
-        console.log(res);
+        if(req.status === 200){
+            let json = await req.json();
+            const [, setUser] = this.context;
+            setUser(()=>{
+                return {...json.data, isAuthenticated: true};
+            })
+        }
     }
 
     render() {
@@ -48,4 +54,5 @@ export class UserLogin extends Component {
     }
 }
 
+UserLogin.contextType = UserContext;
 export default UserLogin;

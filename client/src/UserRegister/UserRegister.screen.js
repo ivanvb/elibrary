@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { UserContext } from '../Shared/context/User.context';
 
 export class UserRegister extends Component {
 
@@ -17,7 +18,7 @@ export class UserRegister extends Component {
 
     async submit(e){
         e.preventDefault();
-        let ans = await fetch("/user/signup/", {
+        let req = await fetch("/user/signup/", {
             method: "POST",
             headers: {
                 accept: "application/json",
@@ -30,7 +31,13 @@ export class UserRegister extends Component {
             })
         });
 
-        let res = await ans.json();
+        if(req.status === 200){
+            let json = await req.json();
+            const [, setUser] = this.context;
+            setUser(()=>{
+                return {...json.data, isAuthenticated: true};
+            })
+        }
     }
 
     handleChange(e){
@@ -51,4 +58,5 @@ export class UserRegister extends Component {
     }
 }
 
+UserRegister.contextType = UserContext;
 export default UserRegister;
