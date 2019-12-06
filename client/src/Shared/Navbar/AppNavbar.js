@@ -27,17 +27,18 @@ const AppNavbar = () => {
                 <LinkContainer to="/login" activeClassName="active">
                     <Nav.Item as={Nav.Link}>Log In</Nav.Item>
                 </LinkContainer>}
+                
 
                 {user.isAuthenticated && user.admin &&
                 <LinkContainer to="/createBook" activeClassName="active">
                     <Nav.Item as={Nav.Link}>Create Book</Nav.Item>
                 </LinkContainer>}
-                {user.isAuthenticated && user.admin &&
-                <LinkContainer to="/editBook" activeClassName="active">
-                    <Nav.Item as={Nav.Link}>Edit Book</Nav.Item>
-                </LinkContainer>}
 
-                {user.isAuthenticated && <Nav.Item as={Nav.Link}>{user.name}</Nav.Item>}
+
+                {user.isAuthenticated && 
+                <LinkContainer to="/myprofile" activeClassName="active">
+                    <Nav.Item as={Nav.Link}>{user.name}</Nav.Item>
+                </LinkContainer>}
                 {user.isAuthenticated && <Nav.Item as={Nav.Link} onClick={async ()=>{
                     let res = await fetch('/user/signout/', {method: 'POST'});
                     setUser((user)=> {

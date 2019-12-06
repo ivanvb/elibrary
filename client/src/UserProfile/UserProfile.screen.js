@@ -1,6 +1,8 @@
-import React from 'react';
+import React, {useContext} from 'react';
+import {UserContext} from '../Shared/context/User.context';
 
-const UserProfile = ({user}) => {
+const UserProfile = () => {
+    const [user] = useContext(UserContext);
     return (
         <div>
             <h1>Perfil</h1>
