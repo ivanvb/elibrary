@@ -26,6 +26,11 @@ function App() {
                     pathToRedir="/"
                     condition={user.isAuthenticated && user.admin}
                     component={CreateBook}/>
+                <ProtectedRoute 
+                    path="/editBook" 
+                    pathToRedir="/"
+                    condition={user.isAuthenticated && user.admin}
+                    component={EditBook}/>
                 <ProtectedRoute
                     path="/login"
                     pathToRedir="/"

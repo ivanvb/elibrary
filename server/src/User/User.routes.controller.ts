@@ -14,7 +14,7 @@ export class UserRoutesController {
 
             if(passwordMatches){
                 req = Auth.addAuthCookies(req, user);
-                const user_data = {name: user._name, email: user._email, admin: user._admin};
+                const user_data = {_id: user.__id, name: user._name, email: user._email, admin: user._admin};
                 res.send({data: user_data})
             } else {
                 res.sendStatus(401);
@@ -41,7 +41,11 @@ export class UserRoutesController {
     public static async getLoggedUser(req: Request, res: Response, next: NextFunction){
         if(Auth.isAuthenticated(req)){
             let user: User = await UserRepository.findOne({_id: req.session.user._id, email: null});
-            res.send({name: user._name, email: user._email, admin: user._admin});
+            res.send({
+                _id: user.__id,
+                name: user._name,
+                email: user._email,
+                admin: user._admin});
         } else {
             res.sendStatus(401);
         }

@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "tsc && node -r dotenv/config ./dist/src/index.js --prod",
+    "start": "tsc && node -r dotenv/config ./dist/index.js --prod",
     "dev": "tsc && node -r dotenv/config ./dist/index.js"
   },
   "keywords": [],

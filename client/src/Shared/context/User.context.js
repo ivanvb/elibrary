@@ -12,6 +12,7 @@ export const UserProvider = (props) => {
         .then(async ans =>{
             if(ans.status === 200){
                 let json = await ans.json();
+                console.log(json)
                 setUser({
                     ...json,
                     isAuthenticated: true
