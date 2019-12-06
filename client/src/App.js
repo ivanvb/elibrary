@@ -10,11 +10,13 @@ import Audio from './AudioComponent/Audio';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import UserProfile from './UserProfile/UserProfile.screen';
 import {UserContext} from './Shared/context/User.context';
+import AppNavbar from './Shared/Navbar/AppNavbar';
 
 function App() {
     return (
-        <div className="App">
+    <div className="App">
         <Router>
+            <AppNavbar/>
             <UserRegister/>
             <UserLogin/>
             <CreateBook/>
