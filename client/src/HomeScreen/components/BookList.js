@@ -27,9 +27,13 @@ const BookList = (props) => {
                     <button onClick={()=>{nextPath('/editbook')}}>edita</button>
                 </LinkContainer>}
 
-                {user._id === book.aggregator && <button onClick={()=>{
-                    fetch(`/book/${book._id}`, {method: "DELETE"});
-                }}>delete</button>}
+                {user._id === book.aggregator && 
+                <LinkContainer style={{cursor: "pointer"}} to={{
+                    pathname: '/delete/',
+                    _id: book._id,
+                    author: book.author,
+                    title: book.title
+                }}><button>delete</button></LinkContainer>}
             </div>
         )
     })

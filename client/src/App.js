@@ -13,6 +13,7 @@ import UserProfile from './UserProfile/UserProfile.screen';
 import {UserContext} from './Shared/context/User.context';
 import AppNavbar from './Shared/Navbar/AppNavbar';
 import ProtectedRoute from './Shared/ProtectedRoute/ProtectedRoute';
+import DeleteBook from './DeleteBook/DeleteBook';
 
 function App() {
     let [user] = useContext(UserContext);
@@ -57,6 +58,11 @@ function App() {
                     pathToRedir="/login"
                     condition={user.isAuthenticated}
                     component={BookDetails}/>
+                <ProtectedRoute
+                    path="/delete"
+                    pathToRedir="/login"
+                    condition={user.isAuthenticated}
+                    component={DeleteBook}/>
             </Switch>
         </Router>
     </div>
