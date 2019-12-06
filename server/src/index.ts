@@ -6,6 +6,7 @@ import session, {SessionOptions} from 'express-session';
 import { userRoutes } from './User/User.routes';
 import { bookRoutes } from './Book/Book.routes';
 import sendSeekable from 'send-seekable';
+import path from 'path';
 
 let app: express.Application = express();
 (async function main(){
@@ -20,7 +21,7 @@ let app: express.Application = express();
         secret: 'secret_key',
         resave: false,
         saveUninitialized: true,
-        cookie: { maxAge: 60000}
+        cookie: { maxAge: Date.now() + (30 * 86400 * 1000)}
     }))
     app.use(cors());
     app.use(fileupload());
@@ -30,7 +31,14 @@ let app: express.Application = express();
 
     app.use('/user', userRoutes);
     app.use('/book', bookRoutes);
+    app.use(express.static(path.join(path.resolve(__dirname, '..', '..'), '/client/build/')));
 
     const port: number = Number(process.env.PORT) || 3001;
-    app.listen(port);
+    app.listen(port, ()=>{
+        console.log("listening on " + port);
+    });
+
+    app.get('*', (req: express.Request, res: express.Response) =>{
+        res.sendFile(path.join(path.resolve(__dirname, '..', '..'), '/client/build/index.html'));
+    });
 })()

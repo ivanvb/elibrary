@@ -1,5 +1,6 @@
 import React from 'react';
 import BookForm from '../Shared/forms/Book.form';
+import withAlert from '../Shared/hoc/withAlert';
 
 const EditBook = (props) => {
     async function handleSubmit(formDate){
@@ -7,6 +8,12 @@ const EditBook = (props) => {
             method: "PUT",
             body: formDate
         });
+
+        if(req.status === 200){
+            props.showAlert({message: 'The book has been edited!', variant: 'success'})
+        } else {
+            props.showAlert({message: 'There was an error editing the book', variant: 'danger'})
+        }
     }
 
     return (
@@ -16,4 +23,4 @@ const EditBook = (props) => {
     );
 };
 
-export default EditBook;
+export default withAlert(EditBook);
