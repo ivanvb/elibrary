@@ -21,5 +21,5 @@ export class util{
 
         await FileStorage.uploadFile(txtdata, filename + ".txt");
         await FileStorage.uploadFile(mp3_content, filename + ".mp3");
-    }  
+    }
 }

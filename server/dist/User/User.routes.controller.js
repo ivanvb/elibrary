@@ -37,10 +37,16 @@ class UserRoutesController {
     static signUp(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
             const { name, email, password } = req.body;
-            const user = new User_1.User(name, email, password);
-            const saved = yield User_repository_1.UserRepository.save(user);
-            auth_1.Auth.addAuthCookies(req, saved);
-            res.send({ saved });
+            let isRegistered = yield User_repository_1.UserRepository.findOne({ email: email, _id: null });
+            if (name && email && password && !isRegistered) {
+                const user = new User_1.User(name, email, password);
+                const saved = yield User_repository_1.UserRepository.save(user);
+                auth_1.Auth.addAuthCookies(req, saved);
+                res.send({ saved });
+            }
+            else {
+                res.sendStatus(400);
+            }
         });
     }
     static signOut(req, res, next) {

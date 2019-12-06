@@ -26,11 +26,18 @@ export class UserRoutesController {
 
     public static async signUp(req: Request, res: Response, next: NextFunction){
         const {name, email, password} = req.body;
-        const user: User = new User(name, email, password);
-        const saved = await UserRepository.save(user);
+        let isRegistered = await UserRepository.findOne({email: <string>email, _id: null});
 
-        Auth.addAuthCookies(req, saved);
-        res.send({saved});
+        if(name && email && password && !isRegistered){
+            const user: User = new User(name, email, password);
+            const saved = await UserRepository.save(user);
+    
+            Auth.addAuthCookies(req, saved);
+            res.send({saved});
+        } else {
+            res.sendStatus(400);
+        }
+        
     }
 
     public static async signOut(req: Request, res: Response, next: NextFunction){
