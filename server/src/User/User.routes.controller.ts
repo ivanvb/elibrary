@@ -44,6 +44,8 @@ export class UserRoutesController {
             let user: User = await UserRepository.findOne({_id: req.session.user._id, email: null});
             console.log(user);
             res.send({name: user._name, email: user._email, admin: user._admin});
+        } else {
+            res.sendStatus(401);
         }
     }
 }
