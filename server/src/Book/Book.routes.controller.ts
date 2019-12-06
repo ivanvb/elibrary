@@ -90,4 +90,11 @@ export class BookRoutesController {
             res.sendStatus(200);
         }
     }
+
+    public static async getAllBooks(req: Request, res: Response, next: NextFunction){
+        if(Auth.isAuthenticated(req)){
+            let books = await BookRepository.findAll();
+            res.send({books});
+        }
+    }
 }

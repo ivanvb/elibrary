@@ -5,6 +5,11 @@ export class BookRepository{
         const savedBook = await BookModel.create(book);
         return savedBook;
     }
+
+    public static async findAll(): Promise<Book[]>{
+        const books: Book[] = await BookModel.find({});
+        return books;
+    }
     
     public static async findOne(_id: string): Promise<Book>{
         const found = await BookModel.findOne({_id});
