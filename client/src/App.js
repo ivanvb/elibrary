@@ -7,6 +7,7 @@ import EditBook from './EditBook/EditBook.screen';
 import HomeScreen from './HomeScreen/HomeScreen.screen';
 import ReadBook from './ReadBook/ReadBook.screen';
 import Audio from './AudioComponent/Audio';
+import BookDetails from './BookDetails/BookDeatils.screen';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import UserProfile from './UserProfile/UserProfile.screen';
 import {UserContext} from './Shared/context/User.context';
@@ -25,11 +26,6 @@ function App() {
                     pathToRedir="/"
                     condition={user.isAuthenticated && user.admin}
                     component={CreateBook}/>
-                <ProtectedRoute 
-                    path="/editBook" 
-                    pathToRedir="/"
-                    condition={user.isAuthenticated && user.admin}
-                    component={EditBook}/>
                 <ProtectedRoute
                     path="/login"
                     pathToRedir="/"
@@ -44,12 +40,18 @@ function App() {
                     path="/"
                     pathToRedir="/login"
                     condition={user.isAuthenticated}
-                    component={HomeScreen}/>
+                    component={HomeScreen}
+                    exact/>
                 <ProtectedRoute
-                    path="myprofile"
+                    path="/myprofile"
                     pathToRedir="/login"
                     condition={user.isAuthenticated}
                     component={UserProfile}/>
+                <ProtectedRoute
+                    path="/details"
+                    pathToRedir="/login"
+                    condition={user.isAuthenticated}
+                    component={BookDetails}/>
             </Switch>
         </Router>
     </div>

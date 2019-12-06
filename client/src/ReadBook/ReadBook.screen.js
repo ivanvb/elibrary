@@ -10,7 +10,7 @@ export class ReadBook extends Component {
     }
 
     async componentDidMount(){
-        let text = (await(await fetch(`/book/${this.props._id}`)).json()).text;
+        let text = (await(await fetch(`/book/text/${this.props._id}`)).json()).text;
         this.setState({text});
     }
 

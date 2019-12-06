@@ -1,13 +1,21 @@
 import React from 'react';
+import {LinkContainer} from 'react-router-bootstrap';
 
 const BookList = (props) => {
     let booklist = props.books.map((book, index) =>{
-        return <li key={index}>{book.title} by {book.author}</li>
+        return (
+            <LinkContainer key={index} style={{cursor: "pointer"}} to={{
+                pathname: '/details/',
+                _id: book._id
+            }}>
+                <p>{book.title} by {book.author}</p>
+            </LinkContainer>
+        )
     })
     return (
-        <ul>
+        <div>
             {booklist}
-        </ul>
+        </div>
     );
 };
 

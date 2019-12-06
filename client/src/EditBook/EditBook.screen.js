@@ -7,8 +7,6 @@ const EditBook = (props) => {
             method: "PUT",
             body: formDate
         });
-
-        console.log(req.status);
     }
 
     return (

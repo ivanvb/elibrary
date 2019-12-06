@@ -97,4 +97,12 @@ export class BookRoutesController {
             res.send({books});
         }
     }
+
+    public static async getSingleBook(req: Request, res: Response, next: NextFunction){
+        if(Auth.isAuthenticated(req)){
+            const {book_id} = req.params;
+            let book = await BookRepository.findOne(book_id);
+            res.send({book});
+        }
+    }
 }
