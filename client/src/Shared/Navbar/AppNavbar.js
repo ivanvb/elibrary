@@ -1,10 +1,12 @@
 import React, {useContext} from 'react';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
+import {withRouter} from 'react-router-dom';
 import { LinkContainer } from 'react-router-bootstrap'
 import { UserContext } from '../context/User.context';
 
-const AppNavbar = () => {
+const AppNavbar = (props) => {
+    const {pathname} = props.location;
     const [user, setUser] = useContext(UserContext);
     
     return (
@@ -19,11 +21,11 @@ const AppNavbar = () => {
             
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse>
-                {!user.isAuthenticated &&
+                {!user.isAuthenticated && pathname != '/signup' &&
                 <LinkContainer to="/signup" activeClassName="active">
                     <Nav.Item as={Nav.Link}>Sign Up</Nav.Item>
                 </LinkContainer>}
-                {!user.isAuthenticated &&
+                {!user.isAuthenticated && pathname != '/login' && 
                 <LinkContainer to="/login" activeClassName="active">
                     <Nav.Item as={Nav.Link}>Log In</Nav.Item>
                 </LinkContainer>}
@@ -51,4 +53,4 @@ const AppNavbar = () => {
     );
 };
 
-export default AppNavbar;
+export default withRouter(AppNavbar);
