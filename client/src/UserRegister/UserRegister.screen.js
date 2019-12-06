@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { UserContext } from '../Shared/context/User.context';
+import withAlert from '../Shared/hoc/withAlert';
 
 export class UserRegister extends Component {
 
@@ -36,7 +37,9 @@ export class UserRegister extends Component {
             const [, setUser] = this.context;
             setUser(()=>{
                 return {...json.data, isAuthenticated: true};
-            })
+            });
+        } else {
+            this.props.showAlert({message: 'There was an error creating your account.', variant: 'danger'});
         }
     }
 
@@ -59,4 +62,4 @@ export class UserRegister extends Component {
 }
 
 UserRegister.contextType = UserContext;
-export default UserRegister;
+export default withAlert(UserRegister);

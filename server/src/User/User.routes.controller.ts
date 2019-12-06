@@ -19,6 +19,8 @@ export class UserRoutesController {
             } else {
                 res.sendStatus(401);
             }
+        } else {
+            res.sendStatus(401);
         }
     }
 
@@ -35,6 +37,8 @@ export class UserRoutesController {
         if(Auth.isAuthenticated(req)){
             await Auth.logOut(req);
             res.sendStatus(200);
+        } else {
+            res.sendStatus(204)
         }
     }
 

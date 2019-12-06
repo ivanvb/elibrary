@@ -1,7 +1,8 @@
 import React from 'react';
 import BookForm from '../Shared/forms/Book.form';
+import withAlert from '../Shared/hoc/withAlert';
 
-const CreateBook = () => {
+const CreateBook = (props) => {
 
     async function handleSubmit(formData){
         let resp = await fetch('/book/',{
@@ -9,7 +10,11 @@ const CreateBook = () => {
             body: formData
         });
 
-        console.log(resp.status);
+        if(resp.status === 200){
+            props.showAlert({message: 'Book created!', variant: 'success'});
+        } else {
+            props.showAlert({message: 'There was an error creating this book!', variant: 'danger'});
+        }
     }
 
     return (
@@ -19,4 +24,4 @@ const CreateBook = () => {
     );
 };
 
-export default CreateBook;
+export default withAlert(CreateBook);

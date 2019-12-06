@@ -17,7 +17,7 @@ export class BookRoutesController {
 
             let savedBook = await BookRepository.save(new Book(author, title, req.session.user._id));
     
-            res.send("Book Uploaded")
+            res.sendStatus(200);
         } else {
             res.send("Not authenticated")
         }

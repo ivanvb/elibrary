@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { UserContext } from '../Shared/context/User.context';
+import withAlert from '../Shared/hoc/withAlert';
 
 export class UserLogin extends Component {
     constructor(props){
@@ -34,12 +35,15 @@ export class UserLogin extends Component {
             })
         });
 
+        console.log(req.status);
         if(req.status === 200){
             let json = await req.json();
             const [, setUser] = this.context;
             setUser(()=>{
                 return {...json.data, isAuthenticated: true};
-            })
+            });
+        } else {
+            this.props.showAlert({message: 'There was an error logging in. Verify your credentials.', variant: 'danger'})
         }
     }
 
@@ -55,4 +59,4 @@ export class UserLogin extends Component {
 }
 
 UserLogin.contextType = UserContext;
-export default UserLogin;
+export default withAlert(UserLogin);

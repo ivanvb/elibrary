@@ -1,8 +1,8 @@
 import React from 'react';
 import {LinkContainer} from 'react-router-bootstrap';
+import withAlert from '../Shared/hoc/withAlert';
 
 const DeleteBook = (props) => {
-    console.log(props.location)
     const {author, title, _id} = props.location; 
     return (
         <div>
@@ -10,7 +10,9 @@ const DeleteBook = (props) => {
             <button onClick={async ()=>{
                 let res = await fetch(`/book/${_id}`, {method: 'DELETE'});
                 if(res.status === 200){
-                    console.log("deleted")
+                    props.showAlert({message: 'Book Deleted!', variant: 'success'});            
+                } else {
+                    props.showAlert({message: 'There was an error deleting your book', variant: 'danger'})
                 }
             }}>Yes</button>
             <LinkContainer style={{cursor: "pointer"}} to={{
@@ -22,4 +24,4 @@ const DeleteBook = (props) => {
     );
 };
 
-export default DeleteBook;
+export default withAlert(DeleteBook);
