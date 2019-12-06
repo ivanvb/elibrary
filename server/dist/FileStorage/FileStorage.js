@@ -14,6 +14,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const aws_sdk_1 = __importDefault(require("aws-sdk"));
 const util_1 = __importDefault(require("util"));
+aws_sdk_1.default.config.update({
+    accessKeyId: process.env.aws_access_key_id,
+    secretAccessKey: process.env.aws_secret_access_key
+});
 class FileStorage {
     static uploadFile(content, filename) {
         return __awaiter(this, void 0, void 0, function* () {

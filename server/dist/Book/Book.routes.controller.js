@@ -19,13 +19,19 @@ class BookRoutesController {
         return __awaiter(this, void 0, void 0, function* () {
             if (auth_1.Auth.isAuthenticated(req) && auth_1.Auth.isAdmin(req)) {
                 const { author, title } = req.body;
-                let bookFilename = util_1.util.generateBookFilename({ author, title });
-                util_1.util.saveTxtAndMp3(bookFilename, req);
-                let savedBook = yield Book_repository_1.BookRepository.save(new Book_1.Book(author, title, req.session.user._id));
-                res.sendStatus(200);
+                let file = req.files.bookfile;
+                if (file.size <= 3000) {
+                    let bookFilename = util_1.util.generateBookFilename({ author, title });
+                    yield util_1.util.saveTxtAndMp3(bookFilename, req);
+                    let savedBook = yield Book_repository_1.BookRepository.save(new Book_1.Book(author, title, req.session.user._id));
+                    res.sendStatus(200);
+                }
+                else {
+                    res.sendStatus(400);
+                }
             }
             else {
-                res.sendStatus(400);
+                res.sendStatus(401);
             }
         });
     }
@@ -80,30 +86,35 @@ class BookRoutesController {
                 const { author, title } = req.body;
                 let newBookName;
                 let files = req.files;
-                const book = yield Book_repository_1.BookRepository.findOne(book_id);
-                let bookName = util_1.util.generateBookFilename({ author: book.__author, title: book.__title });
-                if (author || title) {
-                    newBookName = util_1.util.generateBookFilename({
-                        author: (author ? author : book.__author),
-                        title: (title ? title : book.__title)
-                    });
-                    if (files) {
-                        yield util_1.util.saveTxtAndMp3(newBookName, req);
-                        yield FileStorage_1.FileStorage.deleteFiles([bookName + ".txt", bookName + ".mp3"]);
+                if (files.bookfile.size <= 3000) {
+                    const book = yield Book_repository_1.BookRepository.findOne(book_id);
+                    let bookName = util_1.util.generateBookFilename({ author: book.__author, title: book.__title });
+                    if (author || title) {
+                        newBookName = util_1.util.generateBookFilename({
+                            author: (author ? author : book.__author),
+                            title: (title ? title : book.__title)
+                        });
+                        if (files) {
+                            yield util_1.util.saveTxtAndMp3(newBookName, req);
+                            yield FileStorage_1.FileStorage.deleteFiles([bookName + ".txt", bookName + ".mp3"]);
+                        }
+                        else {
+                            yield FileStorage_1.FileStorage.renameFile(bookName + ".txt", newBookName + ".txt");
+                            yield FileStorage_1.FileStorage.renameFile(bookName + ".mp3", newBookName + ".mp3");
+                        }
+                        yield Book_repository_1.BookRepository.updateOne(book_id, (author ? author : null), (title ? title : null));
                     }
                     else {
-                        yield FileStorage_1.FileStorage.renameFile(bookName + ".txt", newBookName + ".txt");
-                        yield FileStorage_1.FileStorage.renameFile(bookName + ".mp3", newBookName + ".mp3");
+                        yield util_1.util.saveTxtAndMp3(bookName, req);
                     }
-                    yield Book_repository_1.BookRepository.updateOne(book_id, (author ? author : null), (title ? title : null));
+                    res.sendStatus(200);
                 }
                 else {
-                    yield util_1.util.saveTxtAndMp3(bookName, req);
+                    res.sendStatus(400);
                 }
-                res.sendStatus(200);
             }
             else {
-                res.sendStatus(400);
+                res.sendStatus(401);
             }
         });
     }

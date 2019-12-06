@@ -11,6 +11,8 @@ const EditBook = (props) => {
 
         if(req.status === 200){
             props.showAlert({message: 'The book has been edited!', variant: 'success'})
+        } else if(req.status === 400){
+            props.showAlert({message: 'File too large, larger book files will be supported soon!', variant: 'warning'})
         } else {
             props.showAlert({message: 'There was an error editing the book', variant: 'danger'})
         }

@@ -12,6 +12,8 @@ const CreateBook = (props) => {
 
         if(resp.status === 200){
             props.showAlert({message: 'Book created!', variant: 'success'});
+        } else if(resp.status === 400){
+            props.showAlert({message: 'File size limits exceeded. Larger book files will be supported soon!', variant: 'warning'})
         } else {
             props.showAlert({message: 'There was an error creating this book!', variant: 'danger'});
         }
