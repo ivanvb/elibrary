@@ -11,24 +11,45 @@ import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import UserProfile from './UserProfile/UserProfile.screen';
 import {UserContext} from './Shared/context/User.context';
 import AppNavbar from './Shared/Navbar/AppNavbar';
+import ProtectedRoute from './Shared/ProtectedRoute/ProtectedRoute';
 
 function App() {
+    let [user] = useContext(UserContext);
     return (
     <div className="App">
         <Router>
             <AppNavbar/>
-            <UserRegister/>
-            <UserLogin/>
-            <CreateBook/>
-            <EditBook _id="5de99ce3fbbd2367fc3dbc5f"/>
-            <ReadBook _id="5de99ce3fbbd2367fc3dbc5f"/>
-            <Audio url={`/book/audio/5de99ce3fbbd2367fc3dbc5f`}/>
-            
             <Switch>
-                <Route path="/login" component={UserLogin}/>
-                <Route path="/signup" component={UserRegister}/>
-                <Route exact path="/myprofile" component={UserProfile}/>
-                <Route exact path="/" component={HomeScreen}/>
+                <ProtectedRoute 
+                    path="/createBook" 
+                    pathToRedir="/"
+                    condition={user.isAuthenticated && user.admin}
+                    component={CreateBook}/>
+                <ProtectedRoute 
+                    path="/editBook" 
+                    pathToRedir="/"
+                    condition={user.isAuthenticated && user.admin}
+                    component={EditBook}/>
+                <ProtectedRoute
+                    path="/login"
+                    pathToRedir="/"
+                    condition={!user.isAuthenticated}
+                    component={UserLogin}/>
+                <ProtectedRoute
+                    path="/signup"
+                    pathToRedir="/"
+                    condition={!user.isAuthenticated}
+                    component={UserRegister}/>
+                <ProtectedRoute
+                    path="/"
+                    pathToRedir="/login"
+                    condition={user.isAuthenticated}
+                    component={HomeScreen}/>
+                <ProtectedRoute
+                    path="myprofile"
+                    pathToRedir="/login"
+                    condition={user.isAuthenticated}
+                    component={UserProfile}/>
             </Switch>
         </Router>
     </div>
